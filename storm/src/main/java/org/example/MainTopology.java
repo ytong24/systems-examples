@@ -29,25 +29,6 @@ public class MainTopology extends ConfigurableTopology {
         } finally {
             cluster.shutdown();
         }
-        /***/
-//        LocalCluster localCluster = new LocalCluster();
-//
-////        builder.setBolt("exclaim2", new ExclamationBolt(), 2).shuffleGrouping("exclaim1");
-//
-////        conf.setDebug(true);
-//
-//        String topologyName = "test";
-//
-//        conf.setNumWorkers(1);
-////        conf.setEnvironment();
-//
-//        if (args != null && args.length > 0) {
-//            topologyName = args[0];
-//        }
-//
-//        return submit(topologyName, conf, builder);
-//        localCluster.submitTopology()
-//        ConfigurableTopology.start(new MainTopology(), args);
     }
 
     @Override
