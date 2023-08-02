@@ -36,8 +36,11 @@ public class SentenceSpout extends BaseRichSpout {
 
     @Override
     public void nextTuple() {
-        for(String sentence : sentences) {
-            this.soc.emit(new Values(sentence));
+//        for(String sentence : sentences) {
+//            this.soc.emit(new Values(sentence));
+//        }
+        for(int i = 0; i < 2; i++) {
+            this.soc.emit(new Values(sentences.get(i)));
         }
     }
 

@@ -19,6 +19,7 @@ public class MainTopology {
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("sentenceSpout", new SentenceSpout(filePath), 1);
         builder.setBolt("StripBolt", new StripBolt(), 1).shuffleGrouping("sentenceSpout");
+        builder.setBolt("InferBolt", new InferBolt(), 1).shuffleGrouping("StripBolt");
 
         // Set configurations
         Config conf = new Config();
