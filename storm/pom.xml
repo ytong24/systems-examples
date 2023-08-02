@@ -24,6 +24,14 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.storm/multilang-python -->
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>multilang-python</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
