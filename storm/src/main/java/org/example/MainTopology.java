@@ -7,7 +7,7 @@ import org.apache.storm.topology.TopologyBuilder;
 
 import java.util.Map;
 
-public class MainTopology extends ConfigurableTopology {
+public class MainTopology {
     public static void main(String[] args) throws Exception {
         if(args.length == 0) {
             System.out.println("Please pass the file path");
@@ -17,13 +17,13 @@ public class MainTopology extends ConfigurableTopology {
 
         // Create the topology builder
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("sentenceSpout", new SentenceSpout(), 1);
+        builder.setSpout("sentenceSpout", new SentenceSpout(filePath), 1);
         builder.setBolt("StripBolt", new StripBolt(), 1).shuffleGrouping("sentenceSpout");
 
         // Set configurations
         Config conf = new Config();
         conf.setDebug(true);
-        conf.setEnvironment(Map.of("filePath", filePath));
+//        conf.setEnvironment(Map.of("filePath", filePath));
 //        conf.setMaxTaskParallelism(3);
 
         // Run in local mode
@@ -38,27 +38,5 @@ public class MainTopology extends ConfigurableTopology {
         } finally {
             cluster.shutdown();
         }
-    }
-
-    @Override
-    protected int run(String[] args) throws Exception {
-        TopologyBuilder builder = new TopologyBuilder();
-
-        builder.setSpout("sentenceSpout", new SentenceSpout(), 1);
-        builder.setBolt("StripBolt", new StripBolt(), 1).shuffleGrouping("sentenceSpout");
-//        builder.setBolt("exclaim2", new ExclamationBolt(), 2).shuffleGrouping("exclaim1");
-
-        conf.setDebug(true);
-
-        String topologyName = "test";
-
-        conf.setNumWorkers(1);
-//        conf.setEnvironment();
-
-        if (args != null && args.length > 0) {
-            topologyName = args[0];
-        }
-
-        return submit(topologyName, conf, builder);
     }
 }

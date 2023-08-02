@@ -18,11 +18,17 @@ public class SentenceSpout extends BaseRichSpout {
     SpoutOutputCollector soc;
     List<String> sentences;
 
+    String inputFilePath;
+
+    public SentenceSpout(String inputFilePath) {
+        this.inputFilePath = inputFilePath;
+    }
+
     @Override
     public void open(Map<String, Object> map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {
         this.soc = spoutOutputCollector;
         try {
-            sentences = Files.readAllLines(Paths.get((String) map.get("filePath")));
+            sentences = Files.readAllLines(Paths.get(this.inputFilePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
