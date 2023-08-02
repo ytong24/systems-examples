@@ -9,6 +9,7 @@ import org.apache.storm.tuple.Values;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class SentenceSpout extends BaseRichSpout {
     public void open(Map<String, Object> map, TopologyContext topologyContext, SpoutOutputCollector spoutOutputCollector) {
         this.soc = spoutOutputCollector;
         try {
-            sentences = Files.readAllLines(Paths.get("sentences.txt"));
+            sentences = Files.readAllLines(Paths.get((String) map.get("filePath")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
